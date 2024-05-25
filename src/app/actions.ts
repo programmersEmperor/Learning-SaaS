@@ -17,6 +17,7 @@ export async function upsertUserProgess(courseId: number) {
     const responseCourse = await fetch('http://localhost:3000/api/courses', {headers: { Authorization: `Bearer ${await getToken()}` }});
     const courses = await responseCourse.json()
 
+    // throw new Error("something")
     if(!courses){
         throw new Error('Courses not found')
     }

@@ -4,6 +4,7 @@ import Card from "./card";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { upsertUserProgess } from "@/app/actions";
+import { toast } from "sonner";
 
 interface Props{
     courses: typeof courses.$inferInsert[];
@@ -15,12 +16,13 @@ export default function List({courses, activeCourseId}: Props){
     const [pending, startTransition] = useTransition();
     const onClick = (id: number) =>{
         if(pending) return;
-        if(id === activeCourseId){
-            return router.push("/learn")
-        }
 
         startTransition(()=>{
-            upsertUserProgess(id)
+            if(id === activeCourseId){
+                return router.push("/learn")
+            }
+            
+            upsertUserProgess(id).catch(()=> toast.error('Something went wrong'))
         })
     }
 
