@@ -42,6 +42,7 @@ export async function GET(req: NextRequest){
     const normalizedUnits = myUnits.map((unit)=>{
         const lessonWithCompletedStatus = unit.lessons.map((lesson) => {
             if(lesson.challenges.length === 0){
+                console.log('false')
                 return {...lesson, completed: false}
             }
 
@@ -51,9 +52,8 @@ export async function GET(req: NextRequest){
 
             return {...lesson, completed: allCompletedChallenges}
         })
-        return {...unit, completed: lessonWithCompletedStatus}
+        return {...unit, lessons    : lessonWithCompletedStatus}
     })
-
 
 
 

@@ -38,9 +38,9 @@ export default function LessonButton({id, index, totalCount, locked, current, pe
     const isFirst = index === 0;
     const isLast = index === totalCount
     const isCompleted = !current && !locked
+    // console.log(`current: ${current}, locked: ${locked}`)
     const Icon = isCompleted? Check : isLast? Crown : Star;
     const href = isCompleted? `/lesson/${id}` : '/lesson'
-    console.log("locked " + locked)
     return <Link href={href} aria-disabled={locked} style={{pointerEvents: locked? 'none': 'auto'}}>
         
         <div className="relative" style={{right: `${rightPosition}px`, marginTop: `${(isFirst && !isCompleted? '60' : '24')}px`}} >

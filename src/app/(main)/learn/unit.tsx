@@ -19,6 +19,8 @@ export default function Unit({id, order, title, description, lessons, activeLess
             {lessons.map((lesson, index)=>{
                 const isCurrnet = lesson.id === activeLesson?.id; // TODO: remove later
                 const isLocked = !lesson.completed && !isCurrnet
+                console.log(`index: ${index}, current: ${isCurrnet}, lesson.completed: ${JSON.stringify(lesson)}`)
+
                 return <LessonButton
                     key={lesson.id}
                     id={lesson.id}
