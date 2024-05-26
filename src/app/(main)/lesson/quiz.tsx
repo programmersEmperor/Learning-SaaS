@@ -5,8 +5,11 @@ import Header from "./header";
 import QuestionBubble from "./questionBubble";
 import Challenge from "./challenge";
 import Footer from "./footer";
-import { upsertChallengeProgress } from "@/app/actions";
+import { reduceHearts, upsertChallengeProgress } from "@/app/actions";
 import { toast } from "sonner";
+import { useAudio } from "react-use";
+import Image from "next/image";
+import ResultCard from "./resultCard";
 
 interface Props{
     initialLessonId: number;
@@ -17,6 +20,9 @@ interface Props{
 }
 
 export default function Quiz({initialLessonId, initialHearts, initialLessonChallenges, initialPercentage, userSubscription}: Props){
+    const [correctAudio, _c, correctAudioControls] = useAudio({src: '/assets/correct.wav'})
+    const [incorrectAudio, _i, incorrectAudioControls] = useAudio({src: '/assets/incorrect.wav'})
+
     const [pending, startTransition] = useTransition()
     const [hearts, setHearts] = useState(initialHearts)
     const [percentage, setPercentage] = useState(initialPercentage)
@@ -64,7 +70,8 @@ export default function Quiz({initialLessonId, initialHearts, initialLessonChall
                         console.error('missing hearts')
                         return;
                     }
-
+                    
+                    correctAudioControls.play();
                     setStatus('correct')
                     setPercentage(prev=> prev + 100 / challenges.length) 
                     if(initialPercentage === 1000){
@@ -76,13 +83,41 @@ export default function Quiz({initialLessonId, initialHearts, initialLessonChall
             })
         }
         else{
-            console.error('incorrect option')
+            startTransition(()=>{
+                reduceHearts(challenge.id).then((response)=>{
+                    if(response?.error === 'hearts'){
+                        console.error("Missing hearts")
+                        return;
+                    }
+
+                    incorrectAudioControls.play();
+                    setStatus('wrong')
+                    if(!response?.error){
+                        setHearts((prev)=> Math.max(prev -1, 0))
+                    }
+                }).catch(()=> toast.error('something went wrong. please try again'))
+            })
         }
 
     }
 
+    if(true || challenge){
+        return <>
+             <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
+                <Image src="/assets/finish.svg" alt="Finish" className="hidden lg:block" height={100} width={100} />
+                <Image src="/assets/finish.svg" alt="Finish" className="block lg:hidden" height={50} width={50} />
+                <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">Good Job! <br/> You've completed the lesson</h1>
+                <div className="flex items-center gap-x-4 w-full">
+                    <ResultCard variant={'points'} value={challenges.length * 10} />
+                    <ResultCard variant={'hearts'} value={hearts} />
+                </div>
+             </div>
+        </>
+    }
 
     return <>
+        {correctAudio}
+        {incorrectAudio}
         <Header hearts={hearts} percentage={percentage} hasActiveSubscription={false} />
         <div className="flex-1">
             <div className="h-full flex items-center justify-center">
@@ -97,13 +132,13 @@ export default function Quiz({initialLessonId, initialHearts, initialLessonChall
                         selectedOption={selectedOption}
                         status={status}
                         onSelect={onSelect}
-                        disabled={false}
+                        disabled={pending}
                         type={challenge.type}
                         />
                     </div>
                 </div>
             </div>
         </div>
-        <Footer disabled={!selectedOption} status={status} onCheck={onContinue}/>
+        <Footer disabled={pending || !selectedOption} status={status} onCheck={onContinue}/>
     </>
 }

@@ -30,13 +30,12 @@ export default async function Learn(){
 
     const responseLessonPercentage = await fetch('http://localhost:3000/api/lessonPercentage', {headers: { Authorization: `Bearer ${await getToken()}`}})
     const lessonPercentageJson = await responseLessonPercentage.json();
-    const lessonPercentage: {percentage: number} = lessonPercentageJson.result
+    let lessonPercentage: {percentage: number} = lessonPercentageJson.result
     if(!lessonPercentage){
-        redirect('/courses')
+        lessonPercentage = {
+            percentage: 0
+        };
     }
-
-
-    console.log(userProgress.activeCourseId)
 
     return <div className="flex flex-row-reverse gap-[48px] px-6">
         <StickyWrapper>

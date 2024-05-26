@@ -99,7 +99,28 @@ async function main(){
             },
             {
                 id: 3,
-                lessonId: 1, // Nouns
+                lessonId: 2, // Nouns
+                order: 3,
+                question: `Which one of these is the "the robot"?`,
+                type: 'SELECT'
+            },
+            {
+                id: 4,
+                lessonId: 2, // Verbs
+                order: 1,
+                question: `Which one of these is the "the man"?`,
+                type: 'SELECT'
+            },
+            {
+                id: 5,
+                lessonId: 2, // Verbs
+                order: 2,
+                question: `Which one of these is the "the man"?`,
+                type: 'ASSIST'
+            },
+            {
+                id: 6,
+                lessonId: 1, // Verbs
                 order: 3,
                 question: `Which one of these is the "the robot"?`,
                 type: 'SELECT'
