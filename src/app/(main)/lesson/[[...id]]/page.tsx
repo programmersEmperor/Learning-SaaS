@@ -12,7 +12,7 @@ export default async function lesson({params}: Props){
     const lessonId = params.id ? params.id[0] : '';    
     const responesLesson = await fetch(`http://localhost:3000/api/lesson/${lessonId}`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const LessonJson = await responesLesson.json();
-    const lesson = LessonJson.result.lesson  
+    const lesson = LessonJson.result  
     if(!lesson){
         redirect('/learn')
     }
@@ -24,12 +24,12 @@ export default async function lesson({params}: Props){
         redirect('/learn')
     }
     
-    const initialPercentage = lesson.challenges.filter((challenge: any)=> challenge.completed).length / lesson.challenges.length * 100;
+    const initialPercentage = lesson.normalizedChallenges.filter((challenge: any)=> challenge.completed).length / lesson.normalizedChallenges.length * 100;
 
     return <Quiz
-        initialLessonId={lesson.id}
-        initialLessonChallenges={lesson.challenges}
-        initialHearts={50 || userProgress.hearts}
+        initialLessonId={lesson.lesson.id}
+        initialLessonChallenges={lesson.normalizedChallenges}
+        initialHearts={userProgress.hearts}
         initialPercentage={initialPercentage}
         userSubscription={null}
     />

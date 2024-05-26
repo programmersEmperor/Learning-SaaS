@@ -28,7 +28,7 @@ export default async function Learn(){
     }
 
 
-    const responseLessonPercentage = await fetch('http://localhost:3000/api/courseProgress', {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responseLessonPercentage = await fetch('http://localhost:3000/api/lessonPercentage', {headers: { Authorization: `Bearer ${await getToken()}`}})
     const lessonPercentageJson = await responseLessonPercentage.json();
     const lessonPercentage: {percentage: number} = lessonPercentageJson.result
     if(!lessonPercentage){
