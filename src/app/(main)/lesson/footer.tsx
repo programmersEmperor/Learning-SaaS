@@ -7,7 +7,7 @@ import {Button} from '@/components/ui/button'
 import Link from "next/link";
 
 interface  Props {
-    lessonId?: boolean;
+    lessonId?: number;
     disabled?: boolean;
     status: "correct" | "wrong" | "none" | 'completed';
     onCheck: ()=>void;
