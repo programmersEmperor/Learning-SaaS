@@ -161,7 +161,11 @@ export async function reduceHearts(challengeId: number){
     })
 
     const isPractice = !! existingChallengeProgress;
-    if(isPractice || currentUserProgress.hearts === 0){
+    if(isPractice){
+        return {error: "practice"}
+    }
+
+    if(currentUserProgress.hearts === 0){
         return {error: "hearts"}
     }
 
@@ -179,4 +183,8 @@ export async function reduceHearts(challengeId: number){
     revalidatePath('/quests')
     revalidatePath('/leaderboard')
 
+}
+
+export async function refillHearts(){
+    
 }

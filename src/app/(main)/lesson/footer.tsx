@@ -31,7 +31,7 @@ export default function Footer({status, lessonId, disabled, onCheck}: Props){
                 Try Again!
                 </div>}
             {status === 'completed' && <Link href={`/lesson/${lessonId}`}>
-                <Button size={isMobile? 'sm' : "lg"}>
+                <Button size={isMobile? 'sm' : "lg"} onClick={()=>{window.location.href = `/lesson/${lessonId}`}}>
                     Practice again
                 </Button>
             </Link>}

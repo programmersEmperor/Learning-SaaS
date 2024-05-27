@@ -99,7 +99,7 @@ async function main(){
             },
             {
                 id: 3,
-                lessonId: 2, // Nouns
+                lessonId: 1, // Nouns
                 order: 3,
                 question: `Which one of these is the "the robot"?`,
                 type: 'SELECT'
@@ -120,7 +120,7 @@ async function main(){
             },
             {
                 id: 6,
-                lessonId: 1, // Verbs
+                lessonId: 2, // Verbs
                 order: 3,
                 question: `Which one of these is the "the robot"?`,
                 type: 'SELECT'
