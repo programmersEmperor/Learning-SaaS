@@ -4,7 +4,6 @@ const isPublicRoute = createRouteMatcher(['/', '/api(.*)'])
 
 export default clerkMiddleware((auth, req)=>{
     if(!isPublicRoute(req)){
-        // console.log("auth " + JSON.stringify(auth()) + "middleware url: " + req.url)
         auth().protect()
     }
 });

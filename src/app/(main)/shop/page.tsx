@@ -15,9 +15,16 @@ export default async function Shop(){
         redirect('/courses')
     }
 
+    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const userSubscriptionJson = await responseUserSubscription.json()
+    const userSubscriptionData = userSubscriptionJson.result
+    const isPro = !!userSubscriptionData?.isActive;    
+
+
+
     return <div className="flex flex-row-reverse gaq-[48px] px-6">
         <StickyWrapper>
-            <UserProgress activeCourse={userProgress.activeCourse}  hearts={userProgress.hearts} points={userProgress.points} hasActiveSubscription={false} />
+            <UserProgress activeCourse={userProgress.activeCourse}  hearts={userProgress.hearts} points={userProgress.points} hasActiveSubscription={isPro} />
         </StickyWrapper>
         <FeedWrapper>
             <div className="w-full flex flex-col items-center">
@@ -29,7 +36,7 @@ export default async function Shop(){
             <p className="text-muted-foreground text-center text-lg mb-6">
                 Spend your points on cool stuff
             </p>
-            <Items hearts={userProgress.hearts} points={userProgress.points} hasActiveSubscription={false}/>
+            <Items hearts={userProgress.hearts} points={userProgress.points} hasActiveSubscription={isPro}/>
         </FeedWrapper>
     </div>
 }

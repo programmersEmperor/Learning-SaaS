@@ -1,13 +1,18 @@
 'use server'
 
 import db from "@/db/drizzle"
-import { challengeProgress, challenges, userProgress } from "@/db/schema"
+import { challengeProgress, challenges, userProgress, userSubscription } from "@/db/schema"
+import { absoluteUrl } from "@/lib/utils"
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { error } from "console"
 import { and, eq } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { DAY_IN_MS } from "./api/userSubscription/route"
+import response from "./api/response"
+import { stripe } from "@/stripe"
 
+const returnUrl = absoluteUrl('/shop')
 const POINTS_TO_REFILL: number = 10;
 export async function upsertUserProgess(courseId: number) {
     const {userId, getToken} = await auth()
@@ -221,3 +226,55 @@ export async function refillHearts(){
     revalidatePath('/quests')
     revalidatePath('/leaderboard')
 }
+
+export async function createStripeUrl(){
+    const {userId} = await auth();
+    const user = await currentUser();
+
+    if(!userId || !user){
+        throw new Error('Unauthorized')
+    }
+
+    const data = await db.query.userSubscription.findFirst({
+        where: eq(userSubscription.userId, userId)
+    })
+
+    const isActive = data && data.stripePriceId && data.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now()
+    const currentUserSubscription = {...data, isActive};
+
+    if(currentUserSubscription && currentUserSubscription.stripeCustomerId){
+        const stripeSession = await stripe.billingPortal.sessions.create({
+            customer: `${userSubscription.stripeCustomerId}`,
+            return_url: returnUrl
+        })
+
+        return {data: stripeSession.url}
+    }
+
+    const stripeSession = await stripe.checkout.sessions.create({
+        mode: "subscription",
+        payment_method_types: ['card'],
+        customer_email: user.emailAddresses[0].emailAddress,
+        line_items: [{
+            quantity: 1,
+            price_data: {
+                currency: 'USD',
+                product_data:{
+                    name: 'Lingo Pro',
+                    description: "Unlimited hearts"
+                },
+                unit_amount: 2000,
+                recurring:{
+                    interval: 'month'
+                }
+            }
+        }],
+        metadata: {
+            userId,
+        },
+        success_url: returnUrl,
+        cancel_url: returnUrl
+    })
+
+    return {data: stripeSession.url}
+} 

@@ -1,4 +1,4 @@
-import { integer, pgEnum, pgTable, serial, text, boolean } from "drizzle-orm/pg-core";
+import { integer, pgEnum, pgTable, serial, text, boolean, timestamp } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm/relations";
 
 export const courses = pgTable('courses', {
@@ -112,4 +112,11 @@ export const challengeProgressRelations = relations(challengeProgress, ({one, ma
     })
 }))
 
-
+export const userSubscription = pgTable('user_subscription', {
+    id: serial('id').primaryKey(),
+    userId: text('user_id').notNull().unique(),
+    stripeCustomerId: text('stripe_customer_id').notNull().unique(),
+    stripeSubscriptionId: text('stripe_subscription_id').notNull().unique(),
+    stripePriceId: text('stripe_price_id').notNull(),
+    stripeCurrentPeriodEnd: timestamp('stripe_current_period_end').notNull()
+})
