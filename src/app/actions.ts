@@ -8,6 +8,7 @@ import { and, eq } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
+const POINTS_TO_REFILL: number = 10;
 export async function upsertUserProgess(courseId: number) {
     const {userId, getToken} = await auth()
     const user = await currentUser()
@@ -186,5 +187,37 @@ export async function reduceHearts(challengeId: number){
 }
 
 export async function refillHearts(){
-    
+    const {userId} = await auth();
+    if(!userId){
+        throw new Error("Unauthorized")
+    }
+
+    const currentUserProgress = await db.query.userProgress.findFirst({
+        where: eq(userProgress.userId, userId),
+        with: {
+            activeCourse: true
+        }
+    });
+
+    if(!currentUserProgress){
+        throw new Error("user progress is not found")
+    }
+
+    if(currentUserProgress.hearts === 5){
+        throw new Error("Hearts are already full")
+    }
+
+    if(currentUserProgress.points < POINTS_TO_REFILL){
+        throw new Error("Not enough points")
+    }
+
+    await db.update(userProgress).set({
+        hearts: 5,
+        points: currentUserProgress.points - POINTS_TO_REFILL
+    }).where(eq(userProgress.userId, currentUserProgress.userId))
+
+    revalidatePath('/shop')
+    revalidatePath('/learn')
+    revalidatePath('/quests')
+    revalidatePath('/leaderboard')
 }

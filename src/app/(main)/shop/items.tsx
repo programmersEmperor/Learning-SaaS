@@ -1,8 +1,10 @@
 "use client";
 
+import { refillHearts } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useTransition } from "react";
+import { toast } from "sonner";
 
 interface Props{
     hearts: number;
@@ -10,7 +12,7 @@ interface Props{
     hasActiveSubscription?: boolean;
 }
 
-const POINTS_TO_REFILL = 10;
+const POINTS_TO_REFILL: number = 10;
 export default function Items({hearts, points, hasActiveSubscription}: Props){[]
     const [pending, startTransition] = useTransition();
     const onRefillHearts=()=>{
@@ -18,7 +20,9 @@ export default function Items({hearts, points, hasActiveSubscription}: Props){[]
             return;
         }
 
-        startTransition(()=>{})
+        startTransition(()=>{
+            refillHearts().catch((reason)=> toast.error("Something went wrong "))
+        })
     }
 
     return <ul className="w-full">
@@ -27,7 +31,7 @@ export default function Items({hearts, points, hasActiveSubscription}: Props){[]
             <div className="flex-1">
                 <p className="text-neutral-700 text-base lg:text-xl font-bold">Refill hearts</p>
             </div>
-            <Button onClick={onRefillHearts} disabled={hearts === 5 || points < POINTS_TO_REFILL}>
+            <Button onClick={onRefillHearts} disabled={hearts === 5 || points < POINTS_TO_REFILL || pending}>
                 {hearts === 5 ? "full" : 
                 <div className="flex items-center">
                     <Image src={'/assets/points.svg'} alt="Points" height={20} width={20} />

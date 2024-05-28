@@ -40,14 +40,6 @@ export default function UserProgress({activeCourse, hearts, points, hasActiveSub
                 <Image src={'/assets/heart.svg'} alt="hearts" height={22} width={22}
                     className="mr-2"
                 />
-                {points}
-            </Button>
-        </Link>
-        <Link href='/shop' about="shopping">
-            <Button className="text-rose-500" variant={'ghost'}>
-                <Image src={'/assets/heart.svg'} alt="hearts" height={22} width={22}
-                    className="mr-2"
-                />
                 {hasActiveSubscription ? <InfinityIcon className="h-4 w-4 stroke-[3]"/> : hearts}
             </Button>
         </Link>
