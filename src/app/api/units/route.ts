@@ -23,11 +23,14 @@ export async function GET(req: NextRequest){
     }
 
     const myUnits = await db.query.units.findMany({
+        orderBy: (units, {asc})=> [asc(units.order)],
         where: eq(units.courseId, myUserProgress.activeCourseId),
         with: {
             lessons: {
+                orderBy: (lessons, {asc})=> [asc(lessons.order)],
                 with: {
                     challenges: {
+                        orderBy: (challenges, {asc})=> [asc(challenges.order)],
                         with: {
                             challengeProgress: {
                                 where: eq(challengeProgress.userId, userId)

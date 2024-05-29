@@ -2,6 +2,7 @@
 
 import { createStripeUrl, refillHearts } from "@/app/actions";
 import { Button } from "@/components/ui/button";
+import { POINTS_TO_REFILL } from "@/constants";
 import Image from "next/image";
 import { useTransition } from "react";
 import { toast } from "sonner";
@@ -12,7 +13,6 @@ interface Props{
     hasActiveSubscription?: boolean;
 }
 
-const POINTS_TO_REFILL: number = 10;
 export default function Items({hearts, points, hasActiveSubscription}: Props){[]
     const [pending, startTransition] = useTransition();
     const onRefillHearts=()=>{

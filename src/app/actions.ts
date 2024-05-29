@@ -11,9 +11,10 @@ import { redirect } from "next/navigation"
 import { DAY_IN_MS } from "./api/userSubscription/route"
 import response from "./api/response"
 import { stripe } from "@/stripe"
+import { POINTS_TO_REFILL } from "@/constants"
 
 const returnUrl = absoluteUrl('/shop')
-const POINTS_TO_REFILL: number = 10;
+
 export async function upsertUserProgess(courseId: number) {
     const {userId, getToken} = await auth()
     const user = await currentUser()
@@ -30,9 +31,9 @@ export async function upsertUserProgess(courseId: number) {
         throw new Error('Courses not found')
     }
 
-    // if(!courses.unit.length || !courses.unit[0].length){
-    //     throw new Error('the course is empty')
-    // }
+    if(!courses.unit.length || !courses.unit[0].length){
+        throw new Error('the course is empty')
+    }
 
     const responseUserProgress = await fetch("http://localhost:3000/api/userProgress", {headers: { Authorization: `Bearer ${await getToken()}`}})
     const userProgressJson = await responseUserProgress.json();
@@ -61,7 +62,7 @@ export async function upsertUserProgess(courseId: number) {
 }
 
 export async function upsertChallengeProgress(challengeId: number){
-    const {userId} = await auth();
+    const {userId, getToken} = await auth();
     if(!userId){
         throw new Error("Unauthorized")
     }
@@ -72,6 +73,11 @@ export async function upsertChallengeProgress(challengeId: number){
             activeCourse: true
         }
     });
+
+    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const userSubscriptionJson = await responseUserSubscription.json()
+    const userSubscriptionData = userSubscriptionJson.result
+    const isPro = !!userSubscriptionData?.isActive;
 
     if(!currentUserProgress){
         throw new Error("user progress is not found")
@@ -95,8 +101,7 @@ export async function upsertChallengeProgress(challengeId: number){
 
     const isPractice = !! existingChallengeProgress;
     
-    // TODO: not if the user has subscription
-    if(currentUserProgress.hearts === 0 && isPractice){
+    if(currentUserProgress.hearts === 0 && isPractice && !userSubscriptionData?.isActive){
         return {error: "hearts"}
     }
 
@@ -134,10 +139,15 @@ export async function upsertChallengeProgress(challengeId: number){
 }
 
 export async function reduceHearts(challengeId: number){
-    const {userId} = await auth();
+    const {userId, getToken} = await auth();
     if(!userId){
         throw new Error("Unauthorized")
     }
+
+    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const userSubscriptionJson = await responseUserSubscription.json()
+    const userSubscriptionData = userSubscriptionJson.result
+    const isPro = !!userSubscriptionData?.isActive;
 
     const currentUserProgress = await db.query.userProgress.findFirst({
         where: eq(userProgress.userId, userId),
@@ -165,6 +175,10 @@ export async function reduceHearts(challengeId: number){
             eq(challengeProgress.challengeId, challengeId),
         )
     })
+
+    if(userSubscriptionData?.isActive){
+        return {error : 'subscription'} 
+    }
 
     const isPractice = !! existingChallengeProgress;
     if(isPractice){

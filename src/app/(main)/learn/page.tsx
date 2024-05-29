@@ -37,13 +37,18 @@ export default async function Learn(){
         };
     }
 
+    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const userSubscriptionJson = await responseUserSubscription.json()
+    const userSubscriptionData = userSubscriptionJson.result
+    const isPro = !!userSubscriptionData?.isActive;
+
     return <div className="flex flex-row-reverse gap-[48px] px-6">
         <StickyWrapper>
             <UserProgress 
              activeCourse={userProgress.activeCourse}
              hearts={userProgress.hearts}
              points={userProgress.points}
-             hasActiveSubscription={false}
+             hasActiveSubscription={isPro}
             />
         </StickyWrapper>
         <FeedWrapper>

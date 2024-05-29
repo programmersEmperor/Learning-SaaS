@@ -23,6 +23,11 @@ export default async function lesson({params}: Props){
     if(!userProgress){
         redirect('/learn')
     }
+
+    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const userSubscriptionJson = await responseUserSubscription.json()
+    const userSubscriptionData = userSubscriptionJson.result
+    const isPro = !!userSubscriptionData?.isActive;
     
     const initialPercentage = lesson.normalizedChallenges.filter((challenge: any)=> challenge.completed).length / lesson.normalizedChallenges.length * 100;
 
@@ -31,6 +36,6 @@ export default async function lesson({params}: Props){
         initialLessonChallenges={lesson.normalizedChallenges}
         initialHearts={userProgress.hearts}
         initialPercentage={initialPercentage}
-        userSubscription={null}
+        userSubscription={userSubscriptionData}
     />
 }
