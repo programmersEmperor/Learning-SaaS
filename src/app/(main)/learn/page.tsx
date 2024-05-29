@@ -6,6 +6,8 @@ import { userProgress } from "@/db/schema";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import Unit from "./unit";
+import Promo from "@/components/promo";
+import Quests from "@/components/quests";
 
 export default async function Learn(){
     const {getToken} = await auth()
@@ -50,6 +52,8 @@ export default async function Learn(){
              points={userProgress.points}
              hasActiveSubscription={isPro}
             />
+            {!isPro && <Promo/>}
+            {!isPro && <Quests points={userProgress.points}/>}
         </StickyWrapper>
         <FeedWrapper>
             <Header title={userProgress.activeCourse.title}/>

@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import Items from "./items";
+import Promo from "@/components/promo";
 
 export default async function Shop(){
     const {getToken} = await auth()
@@ -25,6 +26,7 @@ export default async function Shop(){
     return <div className="flex flex-row-reverse gaq-[48px] px-6">
         <StickyWrapper>
             <UserProgress activeCourse={userProgress.activeCourse}  hearts={userProgress.hearts} points={userProgress.points} hasActiveSubscription={isPro} />
+            {!isPro && <Promo/>}
         </StickyWrapper>
         <FeedWrapper>
             <div className="w-full flex flex-col items-center">

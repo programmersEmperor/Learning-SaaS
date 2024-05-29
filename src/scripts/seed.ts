@@ -15,6 +15,7 @@ async function main(){
         await db.delete(schema.challenges)
         await db.delete(schema.challengeOptions)
         await db.delete(schema.challengeProgress)
+        await db.delete(schema.userSubscription)
 
         await db.insert(schema.courses).values([
             {

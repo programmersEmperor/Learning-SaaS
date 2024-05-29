@@ -23,7 +23,7 @@ export async function upsertUserProgess(courseId: number) {
         throw new Error("Unauthenticated")
     }
 
-    const responseCourse = await fetch('http://localhost:3000/api/courses', {headers: { Authorization: `Bearer ${await getToken()}` }});
+    const responseCourse = await fetch(`http://localhost:3000/api/courses/${courseId}`, {headers: { Authorization: `Bearer ${await getToken()}` }});
     const courses = await responseCourse.json()
 
     // throw new Error("something")
@@ -31,7 +31,7 @@ export async function upsertUserProgess(courseId: number) {
         throw new Error('Courses not found')
     }
 
-    if(!courses.unit.length || !courses.unit[0].length){
+    if(!courses.units.length || !courses.units[0].lessons.length){
         throw new Error('the course is empty')
     }
 
