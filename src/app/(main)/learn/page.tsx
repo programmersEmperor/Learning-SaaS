@@ -53,7 +53,7 @@ export default async function Learn(){
              hasActiveSubscription={isPro}
             />
             {!isPro && <Promo/>}
-            {!isPro && <Quests points={userProgress.points}/>}
+            <Quests points={userProgress.points}/>
         </StickyWrapper>
         <FeedWrapper>
             <Header title={userProgress.activeCourse.title}/>
