@@ -5,7 +5,7 @@ export function ChallengeOptionList(){
             <TextField source='id' />
             <TextField source='text' />
             <BooleanField source='correct'/>
-            <ReferenceField source='challengeId' reference='challenges'/>
+            <ReferenceField source='challengeId' reference='challenges' />
             <TextField source='imageSrc' />
             <TextField source='audioSrc' />
         </Datagrid>

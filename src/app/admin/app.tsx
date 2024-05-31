@@ -24,7 +24,7 @@ export default function App(){
         <Resource  name="courses" recordRepresentation='title' list={CourseList} create={CourseCreate} edit={CourseEdit} />
         <Resource  name="units" recordRepresentation='title' list={UnitList} create={UnitCreate} edit={UnitEdit} />
         <Resource  name="lessons" recordRepresentation='title' list={LessonList} create={LessonCreate} edit={LessonEdit} />
-        <Resource  name="challenges" recordRepresentation='title' list={ChallengeList} create={ChallengeCreate} edit={ChallengeEdit} />
+        <Resource  name="challenges" recordRepresentation='id' list={ChallengeList} create={ChallengeCreate} edit={ChallengeEdit} />
         <Resource  name="challengeOptions" recordRepresentation='title' list={ChallengeOptionList} create={ChallengeOptionCreate} edit={ChallengeOptionEdit} options={{label: 'Challenge Options'}} />
 
     </Admin>
