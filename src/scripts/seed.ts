@@ -57,30 +57,30 @@ async function main(){
                 unitId: 1,
                 order: 1,
             },
-            {
-                id: 2,
-                title: 'Verbs',
-                unitId: 1,
-                order: 2,
-            },
-            {
-                id: 3,
-                title: 'Verbs',
-                unitId: 1,
-                order: 3,
-            },
-            {
-                id: 4,
-                title: 'Verbs',
-                unitId: 1,
-                order: 4,
-            },
-            {
-                id: 5,
-                title: 'Verbs',
-                unitId: 1,
-                order: 5,
-            },
+            // {
+            //     id: 2,
+            //     title: 'Verbs',
+            //     unitId: 1,
+            //     order: 2,
+            // },
+            // {
+            //     id: 3,
+            //     title: 'Verbs',
+            //     unitId: 1,
+            //     order: 3,
+            // },
+            // {
+            //     id: 4,
+            //     title: 'Verbs',
+            //     unitId: 1,
+            //     order: 4,
+            // },
+            // {
+            //     id: 5,
+            //     title: 'Verbs',
+            //     unitId: 1,
+            //     order: 5,
+            // },
         ])
 
         await db.insert(schema.challenges).values([
@@ -105,27 +105,27 @@ async function main(){
                 question: `Which one of these is the "the robot"?`,
                 type: 'SELECT'
             },
-            {
-                id: 4,
-                lessonId: 2, // Verbs
-                order: 1,
-                question: `Which one of these is the "the man"?`,
-                type: 'SELECT'
-            },
-            {
-                id: 5,
-                lessonId: 2, // Verbs
-                order: 2,
-                question: `Which one of these is the "the man"?`,
-                type: 'ASSIST'
-            },
-            {
-                id: 6,
-                lessonId: 2, // Verbs
-                order: 3,
-                question: `Which one of these is the "the robot"?`,
-                type: 'SELECT'
-            }
+            // {
+            //     id: 4,
+            //     lessonId: 2, // Verbs
+            //     order: 1,
+            //     question: `Which one of these is the "the man"?`,
+            //     type: 'SELECT'
+            // },
+            // {
+            //     id: 5,
+            //     lessonId: 2, // Verbs
+            //     order: 2,
+            //     question: `Which one of these is the "the man"?`,
+            //     type: 'ASSIST'
+            // },
+            // {
+            //     id: 6,
+            //     lessonId: 2, // Verbs
+            //     order: 3,
+            //     question: `Which one of these is the "the robot"?`,
+            //     type: 'SELECT'
+            // }
         ])
 
         await db.insert(schema.challengeOptions).values([
