@@ -4,8 +4,8 @@ import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import response from "../response";
+import { DAY_IN_MS } from "@/constants"
 
-export const DAY_IN_MS = 86_400_000;
 export async function GET(req: NextRequest){
     const {userId} = await auth()
     if(!userId) return  response('unauthorized', null);

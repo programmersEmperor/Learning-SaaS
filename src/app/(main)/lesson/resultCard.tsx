@@ -6,7 +6,7 @@ interface Props{
     value: any;
 }
 
-export default function({variant, value}: Props){
+export default function ResultCard({variant, value}: Props){
     const imageSrc = variant === 'hearts' ? '/assets/heart.svg': '/assets/points.svg'
     return <div className={cn('rounded-2xl border-2 w-full', 
     variant === 'points' && 'bg-orange-400 border-orange-400',

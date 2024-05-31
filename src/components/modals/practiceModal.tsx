@@ -31,7 +31,7 @@ export default function PracticeModal(){
                     Practice Lesson!
                 </DialogTitle>
                 <DialogDescription className='text-center'>
-                    Use practice lesson to regain hearts and points. You won't lose hearts or points in practice lessons. 
+                    Use practice lesson to regain hearts and points. You won&apos;t lose hearts or points in practice lessons. 
                 </DialogDescription>
             </DialogHeader>
             <DialogFooter className='mb-4'>

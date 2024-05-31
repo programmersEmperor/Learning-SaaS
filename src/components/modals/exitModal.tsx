@@ -30,10 +30,10 @@ export default function ExitModal(){
                     <Image src='/assets/mascot_sad.svg' alt='Masoct' height={80} width={80} />
                 </div>
                 <DialogTitle className='text-center font-bold text-2xl'>
-                    Wait, don't go!
+                    Wait, don&apos;t go!
                 </DialogTitle>
                 <DialogDescription className='text-center'>
-                    You're about to leave the lesson. Are you sure?
+                    You&apos;re about to leave the lesson. Are you sure?
                 </DialogDescription>
             </DialogHeader>
             <DialogFooter className='mb-4'>

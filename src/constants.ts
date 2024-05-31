@@ -21,3 +21,4 @@ export const quests = [
         value: 1000
     },
 ]
+export const DAY_IN_MS = 86_400_000;
