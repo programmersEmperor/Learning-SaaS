@@ -10,21 +10,21 @@ export default async function lesson({params}: Props){
     const {getToken} = await auth()
 
     const lessonId = params.id ? params.id[0] : '';    
-    const responesLesson = await fetch(`http://localhost:3000/api/lesson/${lessonId}`, {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responesLesson = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lesson/${lessonId}`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const LessonJson = await responesLesson.json();
     const lesson = LessonJson.result  
     if(!lesson){
         redirect('/learn')
     }
 
-    const responseUserProgress  = await fetch("http://localhost:3000/api/userProgress", {headers: { Authorization: `Bearer ${await getToken()}` }})
+    const responseUserProgress  = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userProgress`, {headers: { Authorization: `Bearer ${await getToken()}` }})
     const userProgressJson = await responseUserProgress.json();
     const userProgress = userProgressJson.result  
     if(!userProgress){
         redirect('/learn')
     }
 
-    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responseUserSubscription = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userSubscription`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const userSubscriptionJson = await responseUserSubscription.json()
     const userSubscriptionData = userSubscriptionJson.result
     const isPro = !!userSubscriptionData?.isActive;
