@@ -5,8 +5,8 @@ export const revalidate = 0;
 
 export default async function courses(){
     const {getToken} = await auth()
-    const responseCourse = await fetch('http://localhost:3000/api/courses', {headers: { Authorization: `Bearer ${await getToken()}` }});
-    const responseUserProgress  = await fetch("http://localhost:3000/api/userProgress", {headers: { Authorization: `Bearer ${await getToken()}` }})
+    const responseCourse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/courses`, {headers: { Authorization: `Bearer ${await getToken()}` }});
+    const responseUserProgress  = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userProgress`, {headers: { Authorization: `Bearer ${await getToken()}` }})
     
     const courses = await responseCourse.json();
     

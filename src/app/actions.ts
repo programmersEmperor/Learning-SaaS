@@ -23,7 +23,7 @@ export async function upsertUserProgess(courseId: number) {
         throw new Error("Unauthenticated")
     }
 
-    const responseCourse = await fetch(`http://localhost:3000/api/courses/${courseId}`, {headers: { Authorization: `Bearer ${await getToken()}` }});
+    const responseCourse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/courses/${courseId}`, {headers: { Authorization: `Bearer ${await getToken()}` }});
     const courses = await responseCourse.json()
 
     // throw new Error("something")
@@ -35,7 +35,7 @@ export async function upsertUserProgess(courseId: number) {
         throw new Error('the course is empty')
     }
 
-    const responseUserProgress = await fetch("http://localhost:3000/api/userProgress", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responseUserProgress = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userProgress`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const userProgressJson = await responseUserProgress.json();
     if(userProgressJson && userProgressJson.activeCourseId){
         await db.update(userProgress).set({
@@ -74,7 +74,7 @@ export async function upsertChallengeProgress(challengeId: number){
         }
     });
 
-    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responseUserSubscription = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userSubscription`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const userSubscriptionJson = await responseUserSubscription.json()
     const userSubscriptionData = userSubscriptionJson.result
     const isPro = !!userSubscriptionData?.isActive;
@@ -144,7 +144,7 @@ export async function reduceHearts(challengeId: number){
         throw new Error("Unauthorized")
     }
 
-    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responseUserSubscription = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userSubscription`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const userSubscriptionJson = await responseUserSubscription.json()
     const userSubscriptionData = userSubscriptionJson.result
     const isPro = !!userSubscriptionData?.isActive;

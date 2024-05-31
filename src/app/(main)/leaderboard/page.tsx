@@ -11,19 +11,19 @@ import Quests from "@/components/quests";
 
 export default async function Leaderboard(){
     const {getToken} = await auth()
-    const responseUserProgress = await fetch("http://localhost:3000/api/userProgress", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responseUserProgress = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userProgress`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const json = await responseUserProgress.json()
     const userProgress = json.result
     if(!userProgress || !userProgress.activeCourseId){
         redirect('/courses')
     }
 
-    const responseUserSubscription = await fetch("http://localhost:3000/api/userSubscription", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responseUserSubscription = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userSubscription`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const userSubscriptionJson = await responseUserSubscription.json()
     const userSubscriptionData = userSubscriptionJson.result
     const isPro = !!userSubscriptionData?.isActive;    
 
-    const responseTopLearners = await fetch("http://localhost:3000/api/topLearners", {headers: { Authorization: `Bearer ${await getToken()}`}})
+    const responseTopLearners = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/topLearners`, {headers: { Authorization: `Bearer ${await getToken()}`}})
     const topLearnersJson = await responseTopLearners.json()
     const topLearnersData = topLearnersJson.result
     if(!topLearnersData){
