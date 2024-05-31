@@ -3,7 +3,7 @@ export function ChallengeOptionList(){
     return <List>
         <Datagrid rowClick='edit'>
             <TextField source='id' />
-            <TextField source='question' />
+            <TextField source='text' />
             <BooleanField source='correct'/>
             <ReferenceField source='challengeId' reference='challenges'/>
             <TextField source='imageSrc' />

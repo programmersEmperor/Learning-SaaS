@@ -16,7 +16,7 @@ export function ChallengeList(){
                     },
                 ]
             }/>
-            <ReferenceField source='unitId' reference='units'/>
+            <ReferenceField source='lessonId' reference='lessons'/>
             <TextField source='order' />
         </Datagrid>
     </List>
