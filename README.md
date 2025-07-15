@@ -1,8 +1,4 @@
----
-title: Self Language Learning App
----
-
-# 🧠 Language Learning App – Built with Next.js, TypeScript & Drizzle
+# 🧠 Language Learning SaaS
 
 ## 🌐 [Live Demo](duolingo-saas.vercel.app)
 <a href="https://duolingo-saas.vercel.app">
