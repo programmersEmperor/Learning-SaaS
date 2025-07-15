@@ -6,7 +6,7 @@
   <p>Click to see the demo</p>
 </a>
 
-
+<br>
 
 ## 📋 Table of Contents
 
@@ -18,7 +18,7 @@
 6. 🙌 [Feedback & Contributions](#-feedback--contributions)
 7. 📬 [Contact](#-contact)
 
-
+<br>
 
 ## 📌 Introduction
 
@@ -26,7 +26,7 @@ This is a language learning SaaS, I built from the ground up to help users learn
 
 The project contains modern technologies and best practices to deliver a clean, scalable architecture. From authentication and payment integration to lesson creation and progress tracking, every feature is custom-built to provide a seamless user experience.
 
-
+<br>
 
 ## ⚙️ Tech Stack
 
@@ -42,7 +42,7 @@ The project contains modern technologies and best practices to deliver a clean, 
 - Clerk
 - Zustand
 
-
+<br>
 
 ## ✨ Features
 
@@ -67,6 +67,7 @@ The project contains modern technologies and best practices to deliver a clean, 
 - ⚡ **Instant Deployment via Vercel**  
   Fast CI/CD pipeline and global hosting for seamless delivery.
 
+<br>
 
 ## ⚡ Quick Start
 
@@ -106,7 +107,7 @@ npm run dev
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
----
+<br>
 
 ## 🚧 Future Enhancements
 
@@ -115,13 +116,13 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 - Localization support  
 - E2E and unit testing coverage  
 
-
+<br>
 
 ## 🙌 Feedback & Contributions
 
 This is a solo-built project created from scratch to demonstrate full-stack skills and product thinking. Suggestions and contributions are always welcome!
 
-
+<br>
 
 ## 📬 Contact
 
