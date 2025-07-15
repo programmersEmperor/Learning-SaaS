@@ -10,8 +10,8 @@ import PracticeModal from "@/components/modals/practiceModal";
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Duolingo By Mutasim",
-  description: "English Self Learning WebApp",
+  title: "Learn with Mutasim",
+  description: "Language Self Learning WebApp",
 };
 
 export default function RootLayout({
