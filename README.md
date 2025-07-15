@@ -19,7 +19,7 @@
 
 ## 📌 Introduction
 
-This is a full-stack language learning platform I built from the ground up to help users learn new languages through interactive, gamified lessons.
+This is a language learning SaaS, I built from the ground up to help users learn new languages through interactive, gamified lessons.
 
 The project contains modern technologies and best practices to deliver a clean, scalable architecture. From authentication and payment integration to lesson creation and progress tracking, every feature is custom-built to provide a seamless user experience.
 
