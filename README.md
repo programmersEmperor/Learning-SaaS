@@ -1,6 +1,6 @@
 # 🧠 Language Learning SaaS
 
-## 🌐 [Live Demo](duolingo-saas.vercel.app)
+## 🌐 [Live Demo](https://duolingo-saas.vercel.app)
 <a href="https://duolingo-saas.vercel.app">
   <img src="public/readme.png" />
   <p>Click to see the demo</p>
