@@ -8,12 +8,15 @@
 
 
 
-## 📋 <a name="table">Table of Contents</a>
+## 📋 Table of Contents
 
-1. 🤖 [Introduction](#introduction)
-2. ⚙️ [Tech Stack](#tech-stack)
-3. 🔋 [Features](#features)
-4. 🤸 [Quick Start](#quick-start)
+1. 📌 [Introduction](#-introduction)
+2. ⚙️ [Tech Stack](#️-tech-stack)
+3. ✨ [Features](#-features)
+4. ⚡ [Quick Start](#-quick-start)
+5. 🚧 [Future Enhancements](#-future-enhancements)
+6. 🙌 [Feedback & Contributions](#-feedback--contributions)
+7. 📬 [Contact](#-contact)
 
 
 
@@ -25,7 +28,7 @@ The project contains modern technologies and best practices to deliver a clean, 
 
 
 
-## <a name="tech-stack">⚙️ Tech Stack</a>
+## ⚙️ Tech Stack
 
 - Next.js
 - React
